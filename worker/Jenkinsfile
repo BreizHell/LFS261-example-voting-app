@@ -17,7 +17,7 @@ pipeline {
         }
 
         stage("test"){ 
-            teps{
+            steps{
                 echo 'Running Unit Tests on worker app'
             }
         }
