@@ -1,0 +1,38 @@
+pipeline {
+  agent any
+
+  tools {
+    nodejs 'NodeJS 22.4.0'
+  }
+
+  stages {
+    stage(build) {
+      when {
+        changeset "**/result/**"
+      }
+
+      steps {
+        echo 'Compiling ...'
+
+        dir('result') {
+          sh 'npm install'
+        }
+      }
+    }
+
+    stage(build) {
+      when {
+        changeset "**/result/**"
+      }
+
+      steps {
+        echo 'Testing ...'
+
+        dir('result') {
+          sh 'npm install'
+          sh 'npm test'
+        }
+      }
+    }
+  }
+}
