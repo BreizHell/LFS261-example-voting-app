@@ -20,7 +20,7 @@ pipeline {
       }
     }
 
-    stage(build) {
+    stage(test) {
       when {
         changeset "**/result/**"
       }
