@@ -6,7 +6,7 @@ pipeline {
   }
 
   stages {
-    stage(build) {
+    stage("build") {
       when {
         changeset "**/result/**"
       }
@@ -20,7 +20,7 @@ pipeline {
       }
     }
 
-    stage(test) {
+    stage("test") {
       when {
         changeset "**/result/**"
       }
