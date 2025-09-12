@@ -1,9 +1,7 @@
 Example Voting App
 =========
 
-This comes from a MR
-
-[![Build Status](http://34.155.5.118:8080/buildStatus/icon?job=instavote%2Fresult-build)](http://34.155.5.118:8080/job/instavote/job/result-build/)
+[![Build Status](http://34.155.244.40:8080/buildStatus/icon?job=instavote%2Fresult-build)](http://34.155.244.40:8080/job/instavote/job/result-build/)
 
 Getting started
 ---------------
