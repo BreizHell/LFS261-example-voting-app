@@ -80,7 +80,7 @@ pipeline {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', 'mydockerlogin') {
                         def img = docker.build(
-                            'breizhell/lfs-worker:v${env.BUILD_ID}',
+                            'breizhell/lfs-worker:latest',
                             './worker'
                         )
 
