@@ -39,7 +39,7 @@ pipeline {
                     sh 'nosetests -v'
                 } 
             }
-        } 
+        }
 
         stage('docker-image') {
             agent any
