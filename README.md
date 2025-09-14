@@ -1,7 +1,9 @@
 Example Voting App
 =========
 
-[![Build Status](http://34.155.244.40:8080/buildStatus/icon?job=instavote%2Fresult-build)](http://34.155.244.40:8080/job/instavote/job/result-build/)
+Result: [![Build Status](http://34.155.244.40:8080/buildStatus/icon?job=Result%2Fmaster)](http://34.155.244.40:8080/job/Result/job/master/)  
+Vote: [![Build Status](http://34.155.244.40:8080/buildStatus/icon?job=Vote%2Fmaster)](http://34.155.244.40:8080/job/Vote/job/master/)  
+Worker: [![Build Status](http://34.155.244.40:8080/buildStatus/icon?job=main%2Fmaster)](http://34.155.244.40:8080/job/main/job/master/)  
 
 Getting started
 ---------------
