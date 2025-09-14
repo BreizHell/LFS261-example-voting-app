@@ -55,7 +55,7 @@ pipeline {
                     docker.withRegistry('https://index.docker.io/v1/', 'mydockerlogin') {
                         def img = docker.build(
                             'breizhell/lfs-vote:latest',
-                            './vote'
+                            '--target dist ./vote'
                         )
 
                         img.push('latest')
