@@ -6,7 +6,7 @@ RUN apk add --no-cache curl
 
 WORKDIR /usr/src/app
 
-COPY package*.json .
+COPY package*.json ./
 
 RUN npm ci
 RUN npm cache clean --force
