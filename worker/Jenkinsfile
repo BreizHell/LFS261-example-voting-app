@@ -9,6 +9,10 @@ pipeline {
 
     stages{
         stage("build"){
+            when {
+                changeset "**/worker/**"
+            }
+
             steps{
                 echo 'Building worker app' 
 
@@ -19,6 +23,10 @@ pipeline {
         }
 
         stage("test"){ 
+            when {
+                changeset "**/worker/**"
+            }
+
             steps{
                 echo 'Running Unit Tests on worker app'
 
@@ -29,15 +37,39 @@ pipeline {
         }
 
         stage("package"){
+            when {
+                changeset "**/worker/**"
+            }
+
             steps{
-                echo 'Packaging worker app'
+                echo 'Packaging worker app into a .jar'
 
                 dir('worker') {
                     sh 'mvn package -DskipTests'
                     archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
                 }
             }
+        }
 
+        stage('docker-image') {
+            when {
+                changeset "**/worker/**"
+            }
+
+            steps {
+                echo 'Building and pushing docker image'
+
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', 'mydockerlogin') {
+                        def img = docker.build(
+                            'breizhell/lfs-worker:v${env.BUILD_ID}',
+                            './worker'
+                        )
+
+                        img.push('latest')
+                    }
+                }
+            }
         }
     }
 
