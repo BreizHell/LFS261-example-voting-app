@@ -64,6 +64,9 @@ pipeline {
         }
 
         stage("Stages for the Result service"){
+            when {
+                changeset "**/result/**"
+            }
             stages{
                 stage("build") {
                     when {
@@ -126,6 +129,9 @@ pipeline {
         }
 
         stage("Stages for the Worker service"){
+            when {
+                changeset "**/worker/**"
+            }
             stages{
                 stage("build"){
                     when {
