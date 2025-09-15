@@ -59,10 +59,10 @@ pipeline {
         }
 
         stage("Stages for the Result service"){
+            when {
+                changeset "**/result/**"
+            }
             stages{
-                when {
-                    changeset "**/result/**"
-                }
                 stage("build") {
                     agent {
                         docker {
@@ -116,10 +116,10 @@ pipeline {
         }
 
         stage("Stages for the Worker service"){
+            when {
+                changeset "**/worker/**"
+            }
             stages{
-                when {
-                    changeset "**/worker/**"
-                }
                 stage("build"){
                     agent {
                         docker {
