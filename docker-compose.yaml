@@ -1,0 +1,54 @@
+volumes:
+  db-data:
+
+networks:
+  instavote:
+
+services:
+  vote:
+    image: breizhell/lfs-vote
+    build: ./vote
+    ports:
+      - 5000:80
+    depends_on:
+      - redis
+    networks:
+      - instavote
+
+  result:
+    image: breizhell/lfs-result
+    build: ./result
+    ports:
+      - 5001:80
+    depends_on:
+      - db
+    networks:
+      - instavote
+ 
+  worker:
+    image: breizhell/lfs-result
+    build: ./worker
+    depends_on:
+      - redis
+      - db
+    networks:
+      - instavote
+
+  redis:
+    image: redis:alpine
+    networks:
+      - instavote
+  
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    volumes:
+      - "db-data:/var/lib/postgresql/data"
+      - "./healthchecks:/healthchecks"
+    healthcheck:
+      test: /healthchecks/postgres.sh
+      interval: "5s"
+    networks:
+      - instavote
