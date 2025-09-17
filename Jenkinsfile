@@ -211,7 +211,8 @@ pipeline {
             }
             steps {
                 echo 'Deploying services with docker compose'
-                sh 'docker compose up -d'
+                sh 'docker compose up --help'
+                sh 'docker compose up --detach'
             }
         }
     }
