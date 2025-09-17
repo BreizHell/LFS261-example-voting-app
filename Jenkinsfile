@@ -3,11 +3,11 @@ pipeline {
 
     stages{
         stage("Stages for the Vote service"){
-            when {
-                changeset "**/vote/**"
-            }
             stages{
                 stage('build'){
+                    when {
+                        changeset "**/vote/**"
+                    }
                     agent{
                         docker{
                             image 'python:3.11-slim'
@@ -22,6 +22,9 @@ pipeline {
                     }
                 }
                 stage('test'){
+                    when {
+                        changeset "**/vote/**"
+                    }
                     agent{
                         docker{
                             image 'python:3.11-slim'
@@ -39,7 +42,9 @@ pipeline {
 
                 stage('docker-image') {
                     agent any
-
+                    when {
+                        changeset "**/vote/**"
+                    }
                     steps {
                         echo 'Building and pushing docker image'
 
@@ -59,11 +64,11 @@ pipeline {
         }
 
         stage("Stages for the Result service"){
-            when {
-                changeset "**/result/**"
-            }
             stages{
                 stage("build") {
+                    when {
+                        changeset "**/result/**"
+                    }
                     agent {
                         docker {
                             image 'node:22-alpine'
@@ -78,6 +83,9 @@ pipeline {
                 }
 
                 stage("test") {
+                    when {
+                        changeset "**/result/**"
+                    }
                     agent {
                         docker {
                             image 'node:22-alpine'
@@ -95,7 +103,9 @@ pipeline {
 
                 stage('docker-image') {
                     agent any
-
+                    when {
+                        changeset "**/result/**"
+                    }
                     steps {
                         echo 'Building and pushing docker image'
 
@@ -116,11 +126,11 @@ pipeline {
         }
 
         stage("Stages for the Worker service"){
-            when {
-                changeset "**/worker/**"
-            }
             stages{
                 stage("build"){
+                    when {
+                        changeset "**/worker/**"
+                    }
                     agent {
                         docker {
                             image 'maven:3.9.8-sapmachine-21'
@@ -135,7 +145,10 @@ pipeline {
                     }
                 }
 
-                stage("test"){ 
+                stage("test"){
+                    when {
+                        changeset "**/worker/**"
+                    }
                     agent {
                         docker {
                             image 'maven:3.9.8-sapmachine-21'
@@ -151,6 +164,9 @@ pipeline {
                 }
 
                 stage("package"){
+                    when {
+                        changeset "**/worker/**"
+                    }
                     agent {
                         docker {
                             image 'maven:3.9.8-sapmachine-21'
@@ -169,7 +185,9 @@ pipeline {
 
                 stage('docker-image') {
                     agent any
-
+                    when {
+                        changeset "**/worker/**"
+                    }
                     steps {
                         echo 'Building and pushing docker image'
                         script {
