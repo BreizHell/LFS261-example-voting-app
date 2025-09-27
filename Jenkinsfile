@@ -214,7 +214,7 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv('sonar-instavote') {
-                    sh "${sonarpath}/bin/sonar-scanner -Dproject.settings=sonar-project.properties -Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_ INTERVAL=86400"
+                    sh "${sonarpath}/bin/sonar-scanner -Dproject.settings=sonar-project.properties -Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_"
                 }
                 timeout(time: 1, unit: 'HOURS') {
                     waitForQualityGate abortPipeline: true
