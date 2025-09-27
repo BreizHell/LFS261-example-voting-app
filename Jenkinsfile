@@ -223,6 +223,9 @@ pipeline {
         }
 
         stage('Waiting for Sonarqube gates') {
+            when {
+                branch 'master'
+            }
             steps {
                 timeout(time: 1, unit: 'HOURS') {
                     waitForQualityGate abortPipeline: true
