@@ -220,9 +220,12 @@ pipeline {
         }
 
         stage("Quality Gate") {
+            agent any
             steps {
-                timeout(time: 2, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
+                withSonarQubeEnv('sonar-instavote') {
+                    timeout(time: 2, unit: 'MINUTES') {
+                        waitForQualityGate abortPipeline: true
+                    }
                 }
             }
         }
