@@ -223,11 +223,13 @@ pipeline {
             when {
                 branch 'master'
             }
-            // Just in case something goes wrong, pipeline will be killed after a timeout
-            timeout(time: 1, unit: 'HOURS') {
-                def qg = waitForQualityGate()
-                if (qg.status != 'OK') {
-                    error "Pipeline aborted due to quality gate failure: ${qg.status}"
+            steps {
+                // Just in case something goes wrong, pipeline will be killed after a timeout
+                timeout(time: 1, unit: 'HOURS') {
+                    def qg = waitForQualityGate()
+                    if (qg.status != 'OK') {
+                        error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                    }
                 }
             }
         }
