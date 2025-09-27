@@ -220,6 +220,7 @@ pipeline {
         }
 
         stage("Quality Gate") {
+            agent any
             steps {
                 withSonarQubeEnv('sonar-instavote') {
                     timeout(time: 2, unit: 'MINUTES') {
