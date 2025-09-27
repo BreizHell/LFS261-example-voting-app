@@ -204,6 +204,35 @@ pipeline {
             }
         }
 
+        stage('Launching Sonarqube analysis') {
+            agent any
+            when {
+                branch 'master'
+            }
+            environment {
+                sonarpath = tool 'SonarScanner'
+            }
+            steps {
+                withSonarQubeEnv('sonar-instavote') {
+                    sh "${sonarpath}/bin/sonar-scanner -Dproject.settings=sonar-project.properties -Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_ INTERVAL=86400"
+                }
+                timeout(time: 1, unit: 'HOURS') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+
+        stage('Waiting for Sonarqube gates') {
+            when {
+                branch 'master'
+            }
+            steps {
+                timeout(time: 1, unit: 'HOURS') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+
         stage('deploy') {
             agent any
             when {
