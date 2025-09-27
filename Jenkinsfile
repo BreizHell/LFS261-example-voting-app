@@ -36,7 +36,20 @@ pipeline {
                         dir('vote'){
                             sh "pip install -r requirements.txt"
                             sh 'nosetests -v'
-                        } 
+                        }
+                    }
+                }
+
+                stage('integration test') {
+                    agent any
+                    when {
+                        changeset "**/vote/**"
+                    }
+                    steps {
+                        echo 'Running Integration Tests on vote app.' 
+                        dir('vote'){
+                            sh "integration_test.sh"
+                        }
                     }
                 }
 

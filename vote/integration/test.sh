@@ -11,7 +11,7 @@ then
   echo "---------------------------------------"
 else
   echo "---------------------------------------"
-  echo "Vote app is not avilable....aborting"
+  echo "Vote app is not available....aborting"
   echo "---------------------------------------"
   exit 2
 fi
