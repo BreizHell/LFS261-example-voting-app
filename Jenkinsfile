@@ -214,21 +214,20 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv('sonar-instavote') {
-                    sh "${sonarpath}/bin/sonar-scanner -Dproject.settings=sonar-project.properties -Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_"
-                }
-                timeout(time: 1, unit: 'HOURS') {
-                    waitForQualityGate abortPipeline: true
+                    sh "${sonarpath}/bin/sonar-scanner -Dproject.settings=sonar-project.properties"
                 }
             }
         }
 
-        stage('Waiting for Sonarqube gates') {
+        stage("Quality Gate"){
             when {
                 branch 'master'
             }
-            steps {
-                timeout(time: 1, unit: 'HOURS') {
-                    waitForQualityGate abortPipeline: true
+            // Just in case something goes wrong, pipeline will be killed after a timeout
+            timeout(time: 1, unit: 'HOURS') {
+                def qg = waitForQualityGate()
+                if (qg.status != 'OK') {
+                    error "Pipeline aborted due to quality gate failure: ${qg.status}"
                 }
             }
         }
